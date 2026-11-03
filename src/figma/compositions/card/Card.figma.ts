@@ -9,7 +9,7 @@ const asset = figma.selectedInstance.getBoolean("Asset") ? figma.selectedInstanc
   )})
 : undefined;
 const heading = figma.selectedInstance.getString("Heading")
-const body = figma.selectedInstance.getSlot("Body2") ?? figma.selectedInstance.getString("Body")
+const body = figma.selectedInstance.getString("Body")
 const direction = figma.selectedInstance.getEnum("Direction", {"Horizontal": "horizontal", "Vertical": "vertical"})
 const actions = figma.selectedInstance.getBoolean("Button") ? figma.properties.children(["Button Group"]) : undefined
 const variant = figma.selectedInstance.getEnum("Variant", {"Stroke": "stroke", "Default": "default"})
@@ -18,6 +18,7 @@ const variant = figma.selectedInstance.getEnum("Variant", {"Stroke": "stroke", "
 function renderInstance(node: ReturnType<typeof figma.selectedInstance.getInstanceSwap>) {
   return node?.type === "INSTANCE" ? node.executeTemplate().example : undefined;
 }
+
 
 export default {
   id: "Card",

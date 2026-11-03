@@ -4,13 +4,23 @@
 
 import figma from "figma"
 
-const children = figma.selectedInstance.getSlot("Slot") ?? figma.properties.children(["Tab"])
+const children = renderSlot(figma.selectedInstance.getSlot("Slot")) ?? figma.properties.children(["Tab"])
 
 const selectedValues=figma.selectedInstance.findLayers(n=>n.type === "INSTANCE" && n.name === "Tab").flatMap(n=>{
  if(n.type !== "INSTANCE") return [];
  const props=n.executeTemplate().metadata?.props;
  return props?.selected && typeof props.value === "string" ? [props.value] : [];
 });
+
+
+// Older inherited slots may be present in metadata but unresolved by Code Connect.
+// Prefer actual slot instances; fall back to the named children/text below.
+function renderSlot(slot: ReturnType<typeof figma.selectedInstance.getSlot>) {
+  if (!slot) return undefined;
+  if (slot.connectedInstances?.length) return slot.connectedInstances.flatMap(n => n.type === "INSTANCE" ? n.executeTemplate().example : []);
+  if (slot.some(section => section.type === "SLOT" || section.type === "ERROR")) return undefined;
+  return slot;
+}
 
 export default {
   id: "Tabs",

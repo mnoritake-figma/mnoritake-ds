@@ -24,7 +24,7 @@ npm run storybook
 
 `codeconnect:validate` parses the templates, checks every source file and target URL, validates property names/types, requires exhaustive variant maps, and accounts for properties without a matching code API. Generated output is ignored under `.code-connect/`.
 
-For later CLI publication, use your own `FIGMA_ACCESS_TOKEN` and `npx figma connect publish`. No token is stored in this repository. The initial publication is performed through the authenticated Figma MCP connection.
+For later CLI publication, use your own `FIGMA_ACCESS_TOKEN` and `npx figma connect publish`. No token is stored in this repository. The initial publication uses the official Code Connect CLI. MCP registration was also checked, but only the CLI publication produced verified dynamic templates.
 
 Sources currently link to the `codex/pulse-code-connect` branch so they resolve while the PR is under review. After merging, replace that branch segment with `main` in the template source directives and icon batch, then republish.
 

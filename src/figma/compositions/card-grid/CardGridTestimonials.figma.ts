@@ -7,7 +7,17 @@ import figma from "figma"
 const gap = figma.selectedInstance.getEnum("Platform", {"Desktop": "1200", "Mobile": "600"})
 const padding = figma.selectedInstance.getEnum("Platform", {"Desktop": "1200", "Mobile": "600"})
 const top = figma.properties.children(["Text Content Heading"])
-const cards = figma.selectedInstance.getSlot("Card Grid") ?? figma.properties.children(["Testimonial Card"])
+const cards = renderSlot(figma.selectedInstance.getSlot("Card Grid")) ?? figma.properties.children(["Testimonial Card"])
+
+
+// Older inherited slots may be present in metadata but unresolved by Code Connect.
+// Prefer actual slot instances; fall back to the named children/text below.
+function renderSlot(slot: ReturnType<typeof figma.selectedInstance.getSlot>) {
+  if (!slot) return undefined;
+  if (slot.connectedInstances?.length) return slot.connectedInstances.flatMap(n => n.type === "INSTANCE" ? n.executeTemplate().example : []);
+  if (slot.some(section => section.type === "SLOT" || section.type === "ERROR")) return undefined;
+  return slot;
+}
 
 export default {
   id: "CardGridTestimonials",

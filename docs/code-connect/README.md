@@ -44,4 +44,12 @@ PULSE's color/type variables are not synchronized to `src/theme.css` by Code Con
 - 248 top-level Figma property checks and 100 exhaustive enum mappings.
 - Source file existence, target file key, unique node IDs, six icon sizes, explicit property exceptions.
 
-These checks do not constitute a visual preview of every variant in Figma Dev Mode. Published records are checked through MCP; interactive behavior and visual fidelity require separate product testing.
+The official CLI also previews all 97 UI templates against Figma data (one representative instance per template). This does not cover every variant or pixel-level fidelity. Published records are checked through MCP; interactive behavior requires separate product testing.
+
+Some inherited SLOT definitions resolve to unrelated nested controls or unresolved placeholders. List slots use resolved nested instances with a named-child fallback. Card/Notification/Dialog text regions deliberately use their verified text properties and named controls; arbitrary replacement content in those slots is not supported (see the property limitations).
+
+## Publication result
+
+All **1,819 records** were published successfully with the official CLI. MCP readback confirms actual dynamic templates (`hasTemplate: true`), including Button and the 32 px Info icon. [publication.json](publication.json) records the result.
+
+[preview-results.json](preview-results.json) contains the final 97 representative Figma previews. All succeeded, with no unresolved-slot or missing-Code-Connect markers. These emitted snippets also type-check against the imported React implementation. CI rechecks these recorded snippets; it does not call Figma or require a token.

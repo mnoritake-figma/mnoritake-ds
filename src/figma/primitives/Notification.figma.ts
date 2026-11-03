@@ -7,7 +7,7 @@ import figma from "figma";
 const instance = figma.selectedInstance;
 const rp = figma.helpers.react.renderProp;
 
-const title = instance.getSlot("Title2") ?? instance.getString("Title");
+const title = instance.getString("Title");
 const icon = instance.getBoolean("Has Icon", {
   true: renderInstance(instance.getInstanceSwap("Icon")),
   false: undefined,
@@ -21,6 +21,7 @@ const variant = instance.getEnum("Variant", {"Message": "message", "Alert": "ale
 function renderInstance(node: ReturnType<typeof figma.selectedInstance.getInstanceSwap>) {
   return node?.type === "INSTANCE" ? node.executeTemplate().example : undefined;
 }
+
 
 export default {
   id: "Notification",

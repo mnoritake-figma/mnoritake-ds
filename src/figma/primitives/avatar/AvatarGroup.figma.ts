@@ -6,7 +6,17 @@ import figma from "figma"
 
 const instance = figma.selectedInstance
 const spacing = instance.getEnum("Spacing", {"Overlap": "negative-200", "Spaced": "100"})
-const children = instance.getSlot("Avatars") ?? instance.getSlot("Avatars2") ?? figma.properties.children(["Avatar"])
+const children = renderSlot(instance.getSlot("Avatars")) ?? renderSlot(instance.getSlot("Avatars2")) ?? figma.properties.children(["Avatar"])
+
+
+// Older inherited slots may be present in metadata but unresolved by Code Connect.
+// Prefer actual slot instances; fall back to the named children/text below.
+function renderSlot(slot: ReturnType<typeof figma.selectedInstance.getSlot>) {
+  if (!slot) return undefined;
+  if (slot.connectedInstances?.length) return slot.connectedInstances.flatMap(n => n.type === "INSTANCE" ? n.executeTemplate().example : []);
+  if (slot.some(section => section.type === "SLOT" || section.type === "ERROR")) return undefined;
+  return slot;
+}
 
 export default {
   id: "AvatarGroup",

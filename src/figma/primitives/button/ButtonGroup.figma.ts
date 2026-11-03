@@ -7,11 +7,8 @@ const instance = figma.selectedInstance;
 const rp = figma.helpers.react.renderProp;
 
 const align = instance.getEnum("Align", {"Justify": "justify", "Start": "start", "End": "end", "Center": "center", "Stack": "stack"});
-const buttons = instance.findLayers(n=>n.type === "INSTANCE" && n.name === "Button");
-const first=buttons[0]; const last=buttons[1];
-const start=instance.getBoolean("Button Start") && first?.type === "INSTANCE" ? first.executeTemplate().example : undefined;
-const end=instance.getBoolean("Button End") && last?.type === "INSTANCE" ? last.executeTemplate().example : undefined;
-const children=figma.code`${start}${end}`;
+// Child extraction preserves the instance visibility set by Button Start / Button End.
+const children = figma.properties.children(["Button"]);
 
 export default {
   id: "ButtonGroup",

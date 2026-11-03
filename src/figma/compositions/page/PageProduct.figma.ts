@@ -4,7 +4,7 @@
 
 import figma from "figma"
 
-const column = figma.selectedInstance.getSlot("Column");
+const column = renderSlot(figma.selectedInstance.getSlot("Column"));
 const textHeading = figma.properties.children(["Text Heading"])
 const tagAndPrice = figma.properties.children(["Tag", "Text Price"])
 const text = figma.properties.children(["Text"])
@@ -13,6 +13,16 @@ const button = figma.properties.children(["Button"])
 const accordion = figma.properties.children(["Accordion"])
 const padding = figma.selectedInstance.getEnum("Platform", {"Desktop": "1600", "Mobile": "600"})
 const gap = figma.selectedInstance.getEnum("Platform", {"Desktop": "1200", "Mobile": "600"})
+
+
+// Older inherited slots may be present in metadata but unresolved by Code Connect.
+// Prefer actual slot instances; fall back to the named children/text below.
+function renderSlot(slot: ReturnType<typeof figma.selectedInstance.getSlot>) {
+  if (!slot) return undefined;
+  if (slot.connectedInstances?.length) return slot.connectedInstances.flatMap(n => n.type === "INSTANCE" ? n.executeTemplate().example : []);
+  if (slot.some(section => section.type === "SLOT" || section.type === "ERROR")) return undefined;
+  return slot;
+}
 
 export default {
   id: "PageProduct",

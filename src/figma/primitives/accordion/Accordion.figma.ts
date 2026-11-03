@@ -3,7 +3,17 @@
 // component=Accordion
 
 import figma from "figma";
-const children = figma.selectedInstance.getSlot("Items") ?? figma.properties.children(["Accordion Item"]);
+const children = renderSlot(figma.selectedInstance.getSlot("Items")) ?? figma.properties.children(["Accordion Item"]);
+
+
+// Older inherited slots may be present in metadata but unresolved by Code Connect.
+// Prefer actual slot instances; fall back to the named children/text below.
+function renderSlot(slot: ReturnType<typeof figma.selectedInstance.getSlot>) {
+  if (!slot) return undefined;
+  if (slot.connectedInstances?.length) return slot.connectedInstances.flatMap(n => n.type === "INSTANCE" ? n.executeTemplate().example : []);
+  if (slot.some(section => section.type === "SLOT" || section.type === "ERROR")) return undefined;
+  return slot;
+}
 
 export default {
   id: "Accordion",

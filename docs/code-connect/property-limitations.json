@@ -41,5 +41,19 @@
   },
   "Tag": {
     "State": "Hover is an interaction state controlled by CSS."
+  },
+  "Button Group": {
+    "Button Start": "Visibility is resolved by Figma child extraction; there is no individual button visibility prop in ButtonGroup.",
+    "Button End": "Visibility is resolved by Figma child extraction; there is no individual button visibility prop in ButtonGroup."
+  },
+  "Card": {
+    "Body2": "Observed Figma slot extraction returned unrelated nested controls instead of this text region. The verified text property and named children are used; arbitrary replacement slot content is not mapped."
+  },
+  "Notification": {
+    "Title2": "Observed Figma slot extraction returned unrelated nested controls instead of this text region. The verified text property and named children are used; arbitrary replacement slot content is not mapped."
+  },
+  "Dialog Body": {
+    "Slot": "Observed Figma slot extraction returned unrelated nested controls instead of this text region. The verified text property and named children are used; arbitrary replacement slot content is not mapped.",
+    "Slot 2": "Observed Figma slot extraction returned unrelated nested controls instead of this text region. The verified text property and named children are used; arbitrary replacement slot content is not mapped."
   }
 }

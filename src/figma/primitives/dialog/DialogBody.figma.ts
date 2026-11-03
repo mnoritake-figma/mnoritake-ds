@@ -6,9 +6,10 @@ import figma from "figma"
 
 const instance = figma.selectedInstance
 const type = instance.getEnum("Type", {"Card": "card", "Sheet": "sheet"})
-const body = instance.getSlot("Slot") ?? instance.getString("Body")
+const body = instance.getString("Body")
 const heading = instance.getString("Heading")
-const buttons = instance.getSlot("Slot 2") ?? figma.properties.children(["Button Group"])
+const buttons = figma.properties.children(["Button Group"])
+
 
 export default {
   id: "DialogBody",
