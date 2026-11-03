@@ -11,4 +11,3 @@ const slot=instance.getSlot("Slot");
 const placement=instance.getEnum("Placement",{"Top": "top", "Left": "left", "Right": "right", "Bottom": "bottom"});
 export default {id:"Tooltip",imports:['import { Tooltip, TextSmall, TextStrong } from "primitives";'],
 example:figma.code`<Tooltip placement="${placement}"><TextStrong>${title}</TextStrong>${slot ?? (body ? figma.code`<TextSmall>${body}</TextSmall>` : undefined)}</Tooltip>`,metadata:{nestable:true}};
-

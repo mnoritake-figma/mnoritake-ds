@@ -10,4 +10,3 @@ const schedule=figma.properties.children(["Navigation Pill List"]);
 const cards=instance.getSlot("Card Grid") ?? figma.properties.children(["Pricing Card"]);
 export default {id:"CardGridPricing",imports:['import { Flex, Section } from "layout";'],
 example:figma.code`<Section padding="${padding}"><Flex container direction="column" gap="${padding}">${schedule}<Flex wrap gap="${padding}">${cards}</Flex></Flex></Section>`,metadata:{nestable:true}};
-

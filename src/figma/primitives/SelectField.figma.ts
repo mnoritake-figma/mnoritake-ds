@@ -24,4 +24,3 @@ export default {
  ${rp("description",description)} ${rp("defaultSelectedKey",selectedKey)} ${rp("placeholder",placeholder)} ${rp("defaultOpen",open)}
  >${selectedKey ? figma.code`<SelectItem id="${selectedKey}">${value}</SelectItem>` : ""}</SelectField>`,metadata:{nestable:true}
 };
-
